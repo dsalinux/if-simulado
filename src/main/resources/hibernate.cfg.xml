@@ -5,19 +5,9 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     
-        <!--Configuracoes kinghost-->
-<!--        <property name="hibernate.connection.url">jdbc:mysql://mysql.deusdeditcontabilidade.com.br/deusdeditconta</property>
-        <property name="hibernate.connection.username">deusdeditconta</property>
-        <property name="hibernate.connection.password">571243</property>-->
-    
-        <!--Configuracoes Jelastic-->
-<!--        <property name="hibernate.connection.url">jdbc:mysql://mysql-contabilidade.jelastichosting.nl/deusdedit</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">RsSVT1xbKw</property>-->
-    
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/if_simulado</property>
-        <property name="hibernate.connection.username">ifad</property>
-        <property name="hibernate.connection.password">pifad1312</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
         
 <!--        <property name="hibernate.connection.url">jdbc:mysql://192.168.208.125:3306/if_simulado</property>
         <property name="hibernate.connection.username">root</property>
