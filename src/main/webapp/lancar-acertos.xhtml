@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="template-admin.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head></h:head>
+    <style>
+        .old {
+            background: #C5E9B4;
+        }
+    </style>
+    <ui:param name="titulo" value="Lançar Acertos sala #{lancarAcertosView.sala}"/>
+    <ui:param name="icone" value="ui-icon-pencil"/>
+    <h:form>
+        <p:remoteCommand action="#{lancarAcertosView.search}" autoRun="true" update="@form"></p:remoteCommand>
+    </h:form>
+    <h:form id="frm">
+
+        <div style="margin-bottom: 10px; float: left">
+            <p:commandButton actionListener="#{lancarAcertosView.search}" update="frm" value="#{lancarAcertosView.currentStateName == 'SEARCH'? 'Atualizar':'Cancelar'}" icon="ui-icon-search"></p:commandButton>
+        </div>
+        <p:spacer width="100%" height="1px"></p:spacer>
+        <p:dataTable emptyMessage="Não encontramos alunos na sala atribuida ao seu usuário." value="#{lancarAcertosView.entitys}" id="resultSet" var="entity" rendered="#{lancarAcertosView.currentStateName == 'SEARCH'}">
+            <p:column headerText="Nome" sortBy="#{entity.nome}"><h:outputText value="#{entity.nome}"></h:outputText></p:column>
+            <p:column headerText="Turma"><h:outputText value="#{entity.turma.nome}"></h:outputText></p:column>
+            <!--<p:column headerText="Sala"><h:outputText value="#{entity.sala}"></h:outputText></p:column>-->
+            <p:column headerText="1º dia" >
+                <p:inputText value="#{entity.quantidadeAcertos1}" size="3" disabled="#{contextView.configuracoes.dia1}">
+                    <p:ajax event="change" listener="#{lancarAcertosView.save(entity)}" update=":frm:resultSet:image-ok" global="false"/>
+                </p:inputText>
+                <!--<p:inplace editor="true" emptyLabel="Adicionar">-->
+                <!--</p:inplace>-->
+            </p:column>
+            <p:column headerText="2º dia">
+                <p:inputText value="#{entity.quantidadeAcertos2}" size="3" disabled="#{contextView.configuracoes.dia2}">
+                    <p:ajax event="change" listener="#{lancarAcertosView.save(entity)}" update=":frm:resultSet:image-ok" global="false"/>
+                </p:inputText>
+                <!--<p:inplace editor="true" emptyLabel="Adicionar">-->
+                <!--</p:inplace>-->
+            </p:column>
+            <p:column id="col-btn">
+                <h:graphicImage id="image-ok" library="imagens" name="action-ok.png" style="display:#{(contextView.configuracoes.dia1 == false and entity.quantidadeAcertos1 != null) or (contextView.configuracoes.dia2 == false and entity.quantidadeAcertos2 != null)?'block':'none'}"></h:graphicImage>
+                <!--<p:commandButton value="Ok" actionListener="#{lancarAcertosView.save(entity)}" update=":frm"></p:commandButton>-->
+            </p:column>
+        </p:dataTable>
+
+    </h:form>
+</ui:composition>

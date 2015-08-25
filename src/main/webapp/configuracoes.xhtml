@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="template-admin.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head></h:head>
+    <ui:param name="titulo" value="Configurações"/>
+    <ui:param name="permissao" value="ADMIN"></ui:param>
+    <ui:param name="icone" value="ui-icon-wrench"/>
+    
+    <h:form id="frm">
+
+        <div style="margin-bottom: 10px; float: left">
+            <p:commandButton actionListener="#{configuracoesBean.iniciarlizar}" update=":frm" value="Atualizar" icon="ui-icon-refresh"></p:commandButton>
+            <p:commandButton actionListener="#{configuracoesBean.save}" update=":frm" value="Salvar" icon="ui-icon-disk"></p:commandButton>
+        </div>
+        <h:panelGrid columns="1" width="100%">
+            <h:outputLabel value="Desabilitar primeiro dia!"></h:outputLabel>
+            <p:selectBooleanCheckbox value="#{configuracoesBean.configuracoes.dia1}" label="Primeiro dia"></p:selectBooleanCheckbox>
+            <h:outputLabel value="Desabilitar segundo dia!"></h:outputLabel>
+            <p:selectBooleanCheckbox value="#{configuracoesBean.configuracoes.dia2    }" label="Segundo dia"></p:selectBooleanCheckbox>
+        </h:panelGrid>
+    </h:form>
+</ui:composition>
+

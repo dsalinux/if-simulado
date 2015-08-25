@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="template-admin.xhtml">
+    <ui:param name="titulo" value="Bem Vindo"/>
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:link outcome="lancar-acertos.jsf" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="width: 120px; height: 120px; padding: 10px">
+                <h:graphicImage library="imagens" name="checklist-icon.png" height="100px"></h:graphicImage>
+                <div style="top: 95px; left: 28px; position: absolute; font-weight: bold;">Lançar Notas</div>
+            </h:link>
+        </h:form>
+    </h:body>
+</ui:composition>
+

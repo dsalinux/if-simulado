@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             template="template-admin.xhtml"
+             xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+    </h:head>
+    <ui:param name="titulo" value="Ajuda do sistema Sistema!"/>
+    <h:body>
+        <h:form>
+            <p:layout style="height: 500px" stateful="true" id="layoutHelp">
+                <p:layoutUnit position="west" header="Tópicos" collapsible="true" minSize="200">
+                    <p:menu style="width: 190px">
+                        <p:menuitem value="Começando no Sistema"></p:menuitem>
+                        <p:menuitem value="Básico sobre Cadastros"></p:menuitem>
+                        <p:menuitem value="Cadastro de Usuarios"></p:menuitem>
+                        <p:menuitem value="Cadastro de Banners"></p:menuitem>
+                        <p:menuitem value="Cadastro de Clientes"></p:menuitem>
+                    </p:menu>
+                </p:layoutUnit>
+                <p:layoutUnit header="Informações" position="center">
+                    
+                </p:layoutUnit>
+            </p:layout>
+        </h:form>
+    </h:body>
+</ui:decorate>
+

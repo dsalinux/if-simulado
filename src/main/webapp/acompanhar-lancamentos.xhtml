@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="template-admin.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head></h:head>
+    <ui:param name="titulo" value="Acompanha Lançamento Acertos"/>
+    <ui:param name="icone" value="ui-icon-lightbulb"/>
+    <ui:param name="permissao" value="ADMIN"></ui:param>
+    <style>
+        .animacao .ui-progressbar-value {
+            background: url("./resources/imagens/pbar.gif");
+         }
+    </style>
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <h:form id="frm">
+        <h:outputText value="Atualizando..." styleClass="classTeste" style="float:left; font-size: 1.5em; display: none"></h:outputText>
+        <p:spacer height="40px"></p:spacer>
+        <p:poll interval="10" listener="#{acompanharLancamentosView.search}" update="@all" onstart="jQuery('.classTeste').css('display','block')" oncomplete="jQuery('.classTeste').css('display','none')" global="false"/>
+        <script type='text/javascript'>
+            google.load('visualization', '1', {packages:['gauge']});
+            google.setOnLoadCallback(drawChart);
+            function drawChart() {
+              var data = google.visualization.arrayToDataTable([
+                ['Label', 'Value'],
+                ['Dia 1',#{acompanharLancamentosView.quantidadeLancadaEmPorcentagemDia1}],
+                ['Dia 2', #{acompanharLancamentosView.quantidadeLancadaEmPorcentagemDia2}]
+              ]);
+
+              var options = {
+                width: 800, height: 420,
+                greenFrom: 60, greenTo: 100,
+                yellowFrom:40, yellowTo: 60,
+                redFrom: 0, redTo: 40,
+                minorTicks: 5,
+                animation:{
+                    duration: 1000,
+                    easing: 'linear',
+                  }
+              };
+                    var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+                    chart.draw(data, options);
+            }
+        </script>
+        <div id='chart_div'></div>
+        <h2>Total lançado dia 1: #{acompanharLancamentosView.quantidadeLancadaDia1} de #{acompanharLancamentosView.quantidadeTotal}</h2>
+        <h2>Total lançado dia 2: #{acompanharLancamentosView.quantidadeLancadaDia2} de #{acompanharLancamentosView.quantidadeTotal}</h2>
+    </h:form>
+</ui:composition>
+
