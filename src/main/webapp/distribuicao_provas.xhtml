@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="template-admin.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head></h:head>
+
+    <ui:param name="titulo" value="Listar Alunos"/>
+    <ui:param name="icone" value="ui-icon-note"/>
+    <ui:param name="permissao" value="ADMIN"></ui:param>
+    
+    <h:form id="frm">
+        <div style="margin-bottom: 10px; float: left">
+          <p:commandButton actionListener="#{distribuicaoSalaView.listarDetalhesSala()}" update="frm" value="Listar" icon="ui-icon-search"></p:commandButton>
+            <h:commandLink>
+                <p:graphicImage library="imagens" name="excel.png" />
+                <p:dataExporter type="xls" target="resultSet" fileName="listaAlunos"/>
+            </h:commandLink>
+        </div>
+      <p:dataTable rowIndexVar="linha" emptyMessage="Nenhum dado para listar." value="#{distribuicaoSalaView.salas}" id="resultSet" var="sala">
+            <p:subTable value="#{distribuicaoSalaView.lerDistribuicaoSalaViews(sala)}" var="entity">
+              <f:facet name="header">
+                <h:outputText value="#{entity.sala}" />
+              </f:facet>
+              <p:column headerText="Turma"><h:outputText value="#{entity.turma}"></h:outputText></p:column>
+              <p:column headerText="Quantidade"><h:outputText value="#{entity.quantidade}"></h:outputText></p:column>
+            </p:subTable>
+        </p:dataTable>
+
+    </h:form>
+</ui:composition>
+

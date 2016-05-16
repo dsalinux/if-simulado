@@ -7,158 +7,167 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-    <c:if test="#{contextView.login == null}">
-        #{loginView.redirecionarLogin()}
-    </c:if>
-    <c:if test="#{permissao != null and permissao == 'ADMIN' and contextView.login.permissao != 'ADMIN'}">
-        #{loginView.redirecionarPermissao()}
-    </c:if>
-    
-    <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
-        <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
-        <link rel="icon" type="image/png" href="./resources/imagens/favicon.ico" />
-        <title>IFNMG - Arinos - #{empty titulo?'Simulado':titulo}</title>
-    </h:head>
-    <style>
-        .menuItem span{font-weight: normal!important;}
-        .imageUser{background-image: url(#{gravatarView.getGravatarUrlImage(contextView.login.email, 30)})!important; width: 30px!important; height: 30px!important;border: 1px solid #fff; box-shadow: 0px 1px 1px #333333; margin-right: 3px; margin-top: -15px}
-        .removeSpanFontWeight span{font-weight: normal!important}
-    </style>
-    <h:body  styleClass="ui-widget-content" style="border: none;">
-        <h:form id="frmTemp">
-            <p:growl autoUpdate="true" globalOnly="true" life="6000" showDetail="true"></p:growl>
-            <p:dialog header="Alterar senha" widgetVar="changepassid">
-                <h:panelGrid columns="2" columnClasses="colunaRight,colunaLeft">
-                    <h:outputText value="Senha anterior:"></h:outputText>
-                    <p:password></p:password>
-                    <h:outputText value="Nova senha:"></h:outputText>
-                    <p:password feedback="true" weakLabel="Fácil" goodLabel="Boa" strongLabel="Muito boa" inline="true" promptLabel="Informe sua nova senha!"></p:password>
-                    <h:outputText value="Repita a nova senha:"></h:outputText>
-                    <p:password></p:password>
+  <c:if test="#{contextView.login == null}">
+    #{loginView.redirecionarLogin()}
+  </c:if>
+  <c:if test="#{permissao != null and permissao == 'ADMIN' and contextView.login.permissao != 'ADMIN'}">
+    #{loginView.redirecionarPermissao()}
+  </c:if>
+
+  <h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
+    <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/png" href="./resources/imagens/favicon.ico" />
+    <title>IFNMG - Arinos - #{empty titulo?'Simulado':titulo}</title>
+  </h:head>
+  <style>
+    .menuItem span{font-weight: normal!important;}
+    .imageUser{background-image: url(#{gravatarView.getGravatarUrlImage(contextView.login.email, 30)})!important; width: 30px!important; height: 30px!important;border: 1px solid #fff; box-shadow: 0px 1px 1px #333333; margin-right: 3px; margin-top: -15px}
+    .removeSpanFontWeight span{font-weight: normal!important}
+  </style>
+  <h:body  styleClass="ui-widget-content" style="border: none;">
+    <h:form id="frmTemp">
+      <p:growl autoUpdate="true" globalOnly="true" life="6000" showDetail="true"></p:growl>
+      <p:dialog header="Alterar senha" widgetVar="changepassid">
+        <h:panelGrid columns="2" columnClasses="colunaRight,colunaLeft">
+          <h:outputText value="Senha anterior:"></h:outputText>
+          <p:password></p:password>
+          <h:outputText value="Nova senha:"></h:outputText>
+          <p:password feedback="true" weakLabel="Fácil" goodLabel="Boa" strongLabel="Muito boa" inline="true" promptLabel="Informe sua nova senha!"></p:password>
+          <h:outputText value="Repita a nova senha:"></h:outputText>
+          <p:password></p:password>
+        </h:panelGrid>
+        <p:commandButton value="Alterar Senha" icon="ui-icon-key" style="width: 100%"></p:commandButton>
+      </p:dialog>
+
+      <style>
+        .temas{border: 2px solid transparent}
+        .temas:hover{border: 2px solid currentColor}
+      </style>
+
+      <p:dialog header="Alterar a aparência" height="400" width="600" widgetVar="idaparencia" modal="true" showEffect="fade" hideEffect="fade">
+        <h:panelGrid columns="1">
+          <h:outputText value="Aparência:" rendererType="block"></h:outputText>
+
+          <p:dataGrid columns="5" value="#{themeSwitcherBean.themes}" var="tema">
+            <p:commandLink actionListener="#{themeSwitcherBean.saveTheme(tema)}" process=":frmTemp" oncomplete="setTheme('#{request.contextPath}', '#{tema}')">
+              <p:graphicImage  styleClass="temas" value="/resources/imagens/themes/#{tema}.png"/>  
+            </p:commandLink>
+            <h:outputText value="#{tema}" style="width: 100%; text-align: center; display: block"></h:outputText>
+          </p:dataGrid>
+
+        </h:panelGrid>
+        <script type="text/javascript">
+          function setTheme(contextPath, theme) {
+            var themePath = contextPath + "/javax.faces.resource/theme.css.jsf?ln=primefaces-" + theme;
+            jQuery("link[href*='theme.css']").attr("href", themePath);
+          }
+        </script>
+      </p:dialog>
+
+      <div id="top" class="top ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix" style="background-position-y: 50%">
+        <!--                <p:menubar style="z-index: 9; float: right; background: none; border: none; margin-right: 10px; box-shadow: none;">
+                            <p:menuitem value="Ir para Site" icon="ui-icon-home" ajax="false" url="index.jsf"></p:menuitem>
+                        </p:menubar>
+                        <div style="float: right; line-height: 40px; margin-right: 10px;">
+                            <p:separator style="float: right; width: 2px; height: 38px"></p:separator>
+                        </div>-->
+        <div class="ui-widget ui-widget-header ui-corner-all" style="width: 120px; height: 60px; position: relative; left: 10px; float: left">
+          <h:panelGroup id="pnlImage" layout="block" style="width: 110px; height: 50px; margin-top: 5px; margin-left: 5px; text-align: center; background-color: #fff">
+            <img src="resources/imagens/logo.png" style="max-width: 100px; max-height: 50px;"></img>
+            <!--<img src="imagemServlet?imageName=logidinamica" style="max-width: 100px; max-height: 50px;"></img>-->
+          </h:panelGroup>
+        </div>
+        <p:menubar autoDisplay="false" style="background: none; margin-left: 30px; border: none; float: left; margin-top: 2px; box-shadow: none;" styleClass="menuItem" id="menuBarSistema">
+          <p:menuitem value="Início" icon="ui-icon-home" url="index.jsf"></p:menuitem>
+          <p:submenu label="Gerenciar" icon="ui-icon-gear">
+            <p:menuitem value="Usuários" icon="ui-icon-person" url="gerenciar-login.jsf" rendered="#{contextView.login.permissao == 'ADMIN'}"></p:menuitem>
+            <p:menuitem value="Lista de Alunos" icon="ui-icon-note" url="listar-alunos.jsf" rendered="#{contextView.login.permissao == 'ADMIN'}"></p:menuitem>
+            <p:menuitem value="Acertos Turmas" icon="ui-icon-pencil" url="gerenciar-acertos.jsf" rendered="#{contextView.login.permissao == 'ADMIN'}"></p:menuitem>
+            <p:menuitem value="Lançar Acertos" icon="ui-icon-pencil" url="lancar-acertos.jsf"></p:menuitem>
+            <p:menuitem value="Distribuição de provas" icon="ui-icon-pencil" url="distribuicao_provas.jsf"></p:menuitem>
+            <p:menuitem value="Andamento" icon="ui-icon-lightbulb" url="acompanhar-lancamentos.jsf" rendered="#{contextView.login.permissao == 'ADMIN'}"></p:menuitem>
+            <p:menuitem value="Configurações" icon="ui-icon-wrench" url="configuracoes.jsf"  rendered="#{contextView.login.permissao == 'ADMIN'}"></p:menuitem>
+          </p:submenu>
+          <p:submenu label="Ajuda" icon="ui-icon-help" id="submen">
+            <p:menuitem value="Ajuda do Sistema" url="help.jsf"></p:menuitem>
+            <p:menuitem value="Sobre" ajax="false" onclick="dialogaboutapplication.show(); return false;"></p:menuitem>
+          </p:submenu>
+        </p:menubar>
+        <div style="padding: 3px 0px 0px 0px; float: left">
+          <p:megaMenu autoDisplay="false" style="height: 38px; background: none; border: none; box-shadow: none;">
+            <p:submenu  label="#{contextView.mensagemLogado}" styleClass="removeSpanFontWeight">
+              <p:column style="font-weight: normal;">
+                <h:panelGrid columns="2" width="250">
+                  <a href="http://gravatar.com" target="_blank" style="z-index: 9; float: left" title="Clique para inserir uma foto.">
+                    <img style="margin-right: 10px; margin-top: 3px; border: 1px solid #fff; box-shadow: 0px 1px 1px #333333;" src="#{gravatarView.getGravatarUrlImage(contextView.login.email, 64)}"></img>
+                  </a>
+                  <h:panelGroup>
+                    <h:outputText value="#{contextView.login.nome}" style="float: left" rendererType="block"></h:outputText>
+                    <p:separator style="height: 3px; float: left"></p:separator>
+                    <h:outputText value="#{contextView.login.email}" rendererType="block"></h:outputText>
+                    <p:button icon="ui-icon-key" value="Alterar Senha" onclick="changepassid.show();
+                        return false;" style="width: 100%"></p:button>
+                  </h:panelGroup>
                 </h:panelGrid>
-                <p:commandButton value="Alterar Senha" icon="ui-icon-key" style="width: 100%"></p:commandButton>
-            </p:dialog>
-
-            <style>
-                .temas{border: 2px solid transparent}
-                .temas:hover{border: 2px solid currentColor}
-            </style>
-            
-            <p:dialog header="Alterar a aparência" height="400" width="600" widgetVar="idaparencia" modal="true" showEffect="fade" hideEffect="fade">
-                <h:panelGrid columns="1">
-                    <h:outputText value="Aparência:" rendererType="block"></h:outputText>
-
-                    <p:dataGrid columns="5" value="#{themeSwitcherBean.themes}" var="tema">
-                        <p:commandLink actionListener="#{themeSwitcherBean.saveTheme(tema)}" process=":frmTemp" oncomplete="setTheme('#{request.contextPath}', '#{tema}')">
-                            <p:graphicImage  styleClass="temas" value="/resources/imagens/themes/#{tema}.png"/>  
-                        </p:commandLink>
-                        <h:outputText value="#{tema}" style="width: 100%; text-align: center; display: block"></h:outputText>
-                    </p:dataGrid>
-                    
-                </h:panelGrid>
-                <script type="text/javascript">
-                    function setTheme(contextPath, theme) {
-                     var themePath =  contextPath + "/javax.faces.resource/theme.css.jsf?ln=primefaces-" + theme;
-                     jQuery("link[href*='theme.css']").attr("href", themePath);
-                        }
-                </script>
-            </p:dialog>
-
-            <div id="top" class="top ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix" style="background-position-y: 50%">
-<!--                <p:menubar style="z-index: 9; float: right; background: none; border: none; margin-right: 10px; box-shadow: none;">
-                    <p:menuitem value="Ir para Site" icon="ui-icon-home" ajax="false" url="index.jsf"></p:menuitem>
-                </p:menubar>
-                <div style="float: right; line-height: 40px; margin-right: 10px;">
-                    <p:separator style="float: right; width: 2px; height: 38px"></p:separator>
-                </div>-->
-                <div class="ui-widget ui-widget-header ui-corner-all" style="width: 120px; height: 60px; position: relative; left: 10px; float: left">
-                    <h:panelGroup id="pnlImage" layout="block" style="width: 110px; height: 50px; margin-top: 5px; margin-left: 5px; text-align: center; background-color: #fff">
-                        <img src="resources/imagens/logo.png" style="max-width: 100px; max-height: 50px;"></img>
-                        <!--<img src="imagemServlet?imageName=logidinamica" style="max-width: 100px; max-height: 50px;"></img>-->
-                    </h:panelGroup>
-                </div>
-                <p:menubar autoDisplay="false" style="background: none; margin-left: 30px; border: none; float: left; margin-top: 2px; box-shadow: none;" styleClass="menuItem" id="menuBarSistema">
-                    <p:menuitem value="Início" icon="ui-icon-home" url="index.jsf"></p:menuitem>
-                    <p:submenu label="Gerenciar" icon="ui-icon-gear">
-                        <p:menuitem value="Usuários" icon="ui-icon-person" url="gerenciar-login.jsf" rendered="#{contextView.login.permissao == 'ADMIN'}"></p:menuitem>
-                        <p:menuitem value="Lista de Alunos" icon="ui-icon-note" url="listar-alunos.jsf" rendered="#{contextView.login.permissao == 'ADMIN'}"></p:menuitem>
-                        <p:menuitem value="Acertos Turmas" icon="ui-icon-pencil" url="gerenciar-acertos.jsf" rendered="#{contextView.login.permissao == 'ADMIN'}"></p:menuitem>
-                        <p:menuitem value="Lançar Acertos" icon="ui-icon-pencil" url="lancar-acertos.jsf"></p:menuitem>
-                        <p:menuitem value="Andamento" icon="ui-icon-lightbulb" url="acompanhar-lancamentos.jsf" rendered="#{contextView.login.permissao == 'ADMIN'}"></p:menuitem>
-                        <p:menuitem value="Configurações" icon="ui-icon-wrench" url="configuracoes.jsf"  rendered="#{contextView.login.permissao == 'ADMIN'}"></p:menuitem>
-                    </p:submenu>
-                    <p:submenu label="Ajuda" icon="ui-icon-help" id="submen">
-                        <p:menuitem value="Ajuda do Sistema" url="help.jsf"></p:menuitem>
-                        <p:menuitem value="Sobre" ajax="false" onclick="dialogaboutapplication.show(); return false;"></p:menuitem>
-                    </p:submenu>
-                    <!--<p:menuitem value="Sair" icon="ui-icon-close" ajax="false" action="#{contextView.deslogar()}"></p:menuitem>-->
-                </p:menubar>
-                <div style="padding: 3px 0px 0px 0px; float: left">
-                    <p:megaMenu autoDisplay="false" style="height: 38px; background: none; border: none; box-shadow: none;">
-                        <p:submenu  label="#{contextView.mensagemLogado}" styleClass="removeSpanFontWeight">
-                            <p:column style="font-weight: normal;">
-                                <h:panelGrid columns="2" width="250">
-                                    <a href="http://gravatar.com" target="_blank" style="z-index: 9; float: left" title="Clique para inserir uma foto.">
-                                        <img style="margin-right: 10px; margin-top: 3px; border: 1px solid #fff; box-shadow: 0px 1px 1px #333333;" src="#{gravatarView.getGravatarUrlImage(contextView.login.email, 64)}"></img>
-                                    </a>
-                                    <h:panelGroup>
-                                        <h:outputText value="#{contextView.login.nome}" style="float: left" rendererType="block"></h:outputText>
-                                        <p:separator style="height: 3px; float: left"></p:separator>
-                                        <h:outputText value="#{contextView.login.email}" rendererType="block"></h:outputText>
-                                        <p:button icon="ui-icon-key" value="Alterar Senha" onclick="changepassid.show();
-                                                return false;" style="width: 100%"></p:button>
-                                    </h:panelGroup>
-                                </h:panelGrid>
-                                <p:spacer height="15px"></p:spacer>
-                                <p:button value="Alterar Aparência" icon="ui-icon-star" onclick="idaparencia.show(); return false;" style="width: 100%"></p:button>
-                                <p:commandButton value="Sair" icon="ui-icon-close" ajax="false" style="width: 100%" action="#{contextView.deslogar()}"></p:commandButton>
-                            </p:column>
-                        </p:submenu>
-                    </p:megaMenu>
-                </div>
-
-            </div>
-        </h:form>
-        <div id="content" class="center_content">
-            <p:messages autoUpdate="true" showDetail="true" >
-                <p:effect type="pulsate" event="load" speed="200" delay="400">  
-                    <f:param name="mode" value="'show'" />  
-                </p:effect> 
-            </p:messages>
-            <p:fieldset>
-                <span style="float: right; font-size: 1.5em"><span class="ui-icon #{icone}" style="float: left; margin-top: 2px;"></span>#{titulo}</span>
-                <ui:insert></ui:insert>
-            </p:fieldset>
-            <p:fieldset style=" margin-top: 5px; background-position: 50%">
-                <div>
-                    <span style="float: left">IFNMG Simulado - Painel de gerenciamento - Versão #{contextView.version}</span>
-                </div>
-                <div style="float: right; line-height: 20px;">
-                    <span style="float: left">Desenvolvido por:</span>
-                    <a href="http:\\www.professordanilo.com.br" target="_blank">Professor Danilo Souza</a>
-
-                </div>
-            </p:fieldset>
+                <p:spacer height="15px"></p:spacer>
+                <p:button value="Alterar Aparência" icon="ui-icon-star" onclick="idaparencia.show();
+                    return false;" style="width: 100%"></p:button>
+                <p:commandButton value="Sair" icon="ui-icon-close" ajax="false" style="width: 100%" action="#{contextView.deslogar()}"></p:commandButton>
+              </p:column>
+            </p:submenu>
+          </p:megaMenu>
+          
         </div>
 
-        <p:ajaxStatus onstart="dialogAjax.show()" oncomplete="dialogAjax.hide()" onerror="dialogAjax.hide(); showError" onsuccess="dialogAjax.hide()" id="ajaxStatusPanel">  
-            <p:dialog height="55" width="200" widgetVar="dialogAjax" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" style="position: fixed">
-                <h:panelGrid columns="2" columnClasses="columnEsquerda, columnDireita">
-                    <h:graphicImage value="./resources/imagens/load.gif" style="width: 48px; margin-right: 10px;"/>
-                    <h:outputText style="float: right; vertical-align: middle; font-weight: bold; border: none; background: none;-moz-box-shadow: inset 0px 0px 0px #fff;-webkit-box-shadow: inset 0px 0px 0px white;box-shadow: inset 0px 0px 0px white;" styleClass="ui-state-default" value="Processando!"></h:outputText>
-                </h:panelGrid>
-            </p:dialog>
-        </p:ajaxStatus>
-        <p:dialog widgetVar="dialogaboutapplication" dynamic="true" header="Sobre o sistema" draggable="false" resizable="false" hideEffect="drop" showHeader="true" showEffect="fade" width="800" height="500">
-            <ui:include parent="this" src="about-application.xhtml"></ui:include>
-        </p:dialog>
-        <script>
-            function showError(data){
-                alert(data);
-            }
-        </script>
-    </h:body>
+      </div>
+    </h:form>
+    <div id="content" class="center_content">
+      <p:messages autoUpdate="true" showDetail="true" >
+        <p:effect type="pulsate" event="load" speed="200" delay="400">  
+          <f:param name="mode" value="'show'" />  
+        </p:effect> 
+      </p:messages>
+      <p:fieldset>
+        <span style="float: right; font-size: 1.5em"><span class="ui-icon #{icone}" style="float: left; margin-top: 2px;"></span>#{titulo}</span>
+        <ui:insert></ui:insert>
+      </p:fieldset>
+      <p:fieldset style=" margin-top: 5px; background-position: 50%">
+        <div>
+          <span style="float: left">IFNMG Simulado - Painel de gerenciamento - Versão #{contextView.version}</span>
+        </div>
+        <div style="float: right; line-height: 20px;">
+          <span style="float: left">Desenvolvido por:</span>
+          <a href="http:\\www.professordanilo.com.br" target="_blank">Professor Danilo Souza</a>
+
+        </div>
+      </p:fieldset>
+    </div>
+
+    <p:ajaxStatus onstart="showAjax();" oncomplete="hideAjax();" id="ajaxStatusPanel">  
+      <h:graphicImage id="ajaxStatus" style="position: fixed; width: 100px;z-index: 9999;top: 0;left: 50%;display: none;" name="load.gif" library="imagens"></h:graphicImage>
+    </p:ajaxStatus>
+    <p:dialog height="55" width="200" widgetVar="dialogAjaxStatus" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+      <h:panelGrid columns="2" columnClasses="columnEsquerda, columnDireita">
+        <h:graphicImage value="./resources/imagens/load.gif" style="width: 48px; margin-right: 10px;"/>
+        <h:outputText style="float: right; vertical-align: middle; font-weight: bold; border: none; background: none;-moz-box-shadow: inset 0px 0px 0px #fff;-webkit-box-shadow: inset 0px 0px 0px white;box-shadow: inset 0px 0px 0px white;" styleClass="ui-state-default" value="Processando!"></h:outputText>
+      </h:panelGrid>
+    </p:dialog>
+    <p:dialog widgetVar="dialogaboutapplication" dynamic="true" header="Sobre o sistema" draggable="false" resizable="false" hideEffect="drop" showHeader="true" showEffect="fade" width="800" height="500">
+      <ui:include parent="this" src="about-application.xhtml"></ui:include>
+    </p:dialog>
+    <script>
+      function showAjax(){
+        $('#ajaxStatus').css('display','block');
+      }
+      function hideAjax(){
+        $('#ajaxStatus').css('display','none');
+      }
+      function showError(data) {
+        alert(data);
+      }
+    </script>
+  </h:body>
 
 </html>

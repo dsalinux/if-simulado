@@ -5,13 +5,13 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     
-        <property name="hibernate.connection.url">jdbc:mysql://192.168.203.189:3306/if_simulado</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost/if_simulado2</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
         
-<!--        <property name="hibernate.connection.url">jdbc:mysql://192.168.208.125:3306/if_simulado</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">gerentia</property>-->
+<!--        <property name="hibernate.connection.url">jdbc:mysql://192.168.208.21:3306/if_simulado</property>
+        <property name="hibernate.connection.username">ifad</property>
+        <property name="hibernate.connection.password">pifad1312</property>-->
     
         <property name="hibernate.format_sql">false</property>
         <property name="hibernate.show_sql">false</property>    
@@ -20,8 +20,8 @@
             org.hibernate.connection.C3P0ConnectionProvider
         </property>
         <property name="hibernate.c3p0.min_size">1</property>
-        <property name="hibernate.c3p0.max_size">20</property>
-        <property name="hibernate.c3p0.timeout">30</property>
+        <property name="hibernate.c3p0.max_size">50</property>
+        <property name="hibernate.c3p0.timeout">60</property>
         <property name="hibernate.c3p0.idle_test_period">100</property>
 
         <mapping class="br.edu.ifnmg.arinos.entity.AcertosTurmas"/>

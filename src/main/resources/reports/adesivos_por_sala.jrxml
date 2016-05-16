@@ -28,7 +28,11 @@ ORDER BY aluno.`sala`, aluno.`nome`]]>
 			<band/>
 		</groupHeader>
 		<groupFooter>
-			<band height="22"/>
+			<band height="22">
+				<break>
+					<reportElement x="0" y="9" width="100" height="1" uuid="d92be8e3-df45-496f-9d24-69e9ae3b2073"/>
+				</break>
+			</band>
 		</groupFooter>
 	</group>
 	<background>

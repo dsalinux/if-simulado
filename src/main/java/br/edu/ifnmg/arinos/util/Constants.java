@@ -7,8 +7,8 @@ package br.edu.ifnmg.arinos.util;
  */
 public class Constants {
 
-    public static final String CLIENTE_NAME = "default_project";
-    public static final String CLIENTE_NAME_DESCRIPTION  = "Default project";
-    public static final String CURRENT_VERSION  = "0.0.1";
+    public static final String CLIENTE_NAME = "IF Simulado";
+    public static final String CLIENTE_NAME_DESCRIPTION  = "Simulado IFNMG";
+    public static final String CURRENT_VERSION  = "1.0.1";
 
 }
