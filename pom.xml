@@ -16,11 +16,11 @@
 
     <dependencies>
         <!-- Themes -->
-        <dependency>
+<!--        <dependency>
             <groupId>org.primefaces.themes</groupId>
             <artifactId>all-themes</artifactId>
             <version>1.0.10</version>
-        </dependency>
+        </dependency>-->
         
         <!-- Dependencias WEB -->
         
@@ -169,12 +169,12 @@
     </build>
 
     <repositories>
-        <repository>  
+<!--        <repository>  
             <id>prime-repo</id>  
             <name>PrimeFaces Maven Repository</name>  
             <url>http://repository.primefaces.org</url>  
             <layout>default</layout>  
-        </repository> 
+        </repository> -->
         
         <repository>
             <id>maven2-repository.dev.java.net</id>
