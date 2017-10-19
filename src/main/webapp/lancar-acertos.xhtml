@@ -24,19 +24,19 @@
     </div>
     <p:spacer width="100%" height="1px"></p:spacer>
     <p:focus context="resultSet"></p:focus>
-    <p:dataTable emptyMessage="Não encontramos alunos na sala atribuida ao seu usuário." rowStyleClass="linha#{entity.id}" value="#{lancarAcertosView.entitys}" id="resultSet" var="entity" rendered="#{lancarAcertosView.currentStateName == 'SEARCH'}">
+    <p:dataTable emptyMessage="Não encontramos alunos na sala atribuida ao seu usuário." rowStyleClass="linha#{entity.id} #{((contextView.configuracoes.dia1 == false and entity.quantidadeAcertos1 != null) || (contextView.configuracoes.dia2 == false and entity.quantidadeAcertos2 != null))?'':''}" value="#{lancarAcertosView.entitys}" id="resultSet" var="entity" rendered="#{lancarAcertosView.currentStateName == 'SEARCH'}">
       <p:column headerText="Nome" sortBy="#{entity.nome}"><h:outputText value="#{entity.nome}"></h:outputText></p:column>
       <p:column headerText="Turma"><h:outputText value="#{entity.turma.nome}"></h:outputText></p:column>
       <!--<p:column headerText="Sala"><h:outputText value="#{entity.sala}"></h:outputText></p:column>-->
-      <p:column headerText="1º dia" >
-        <p:inputText value="#{entity.quantidadeAcertos1}" size="3" disabled="#{contextView.configuracoes.dia1}" onfocus="$('.linha#{entity.id}').addClass('focado')" onblur="$('.linha#{entity.id}').removeClass('focado')">
+      <p:column headerText="1º dia" rendered="#{contextView.configuracoes.dia1 == false}">
+        <p:inputText value="#{entity.quantidadeAcertos1}" size="3" onfocus="$('.linha#{entity.id}').addClass('focado')" onblur="$('.linha#{entity.id}').removeClass('focado')">
           <p:ajax event="change" listener="#{lancarAcertosView.save(entity)}" update=":frm:resultSet:image-ok" global="false"/>
         </p:inputText>
         <!--<p:inplace editor="true" emptyLabel="Adicionar">-->
         <!--</p:inplace>-->
       </p:column>
-      <p:column headerText="2º dia">
-        <p:inputText value="#{entity.quantidadeAcertos2}" size="3" disabled="#{contextView.configuracoes.dia2}" onfocus="$('.linha#{entity.id}').addClass('focado')" onblur="$('.linha#{entity.id}').removeClass('focado')">
+      <p:column headerText="2º dia" rendered="#{contextView.configuracoes.dia2 == false}">
+        <p:inputText value="#{entity.quantidadeAcertos2}" size="3" onfocus="$('.linha#{entity.id}').addClass('focado')" onblur="$('.linha#{entity.id}').removeClass('focado')">
           <p:ajax event="change" listener="#{lancarAcertosView.save(entity)}" update=":frm:resultSet:image-ok" global="false"/>
         </p:inputText>
         <!--<p:inplace editor="true" emptyLabel="Adicionar">-->
